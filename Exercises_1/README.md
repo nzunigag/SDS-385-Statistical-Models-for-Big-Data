@@ -14,8 +14,8 @@ The exercises for this unit will have you practice these techniques.  They will 
 
 # Comments for the Peer-Reviewer
 
-- The solution is presented in a [PDF](solution01-SDS385.pdf) document along with the [Latex](solution01-SDS385.tex) files used. 
+- The solution is presented in a [PDF](solution01-SDS385.pdf) document along with the [Latex](solution01-SDS385.tex) files used. This document presents a detailed description of the solution for each exercise, and it also includes the description of the code I used.
 
-- The R code files can be found in this [folder](Ex01R), which also includes the output figures and the database used in Part 2.
+- The R code files can be found in this [folder](Ex01R), which also includes the output [figures](Ex01R/Fig/) presented in the description of the solution, and the [database](Ex01R/wdbc.csv) used in Part 2 of the exercise.
 
 - I also included a [literature](Literature) folder, which contains additional readings I used.
