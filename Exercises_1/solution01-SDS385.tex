@@ -383,9 +383,8 @@ Gradll <- function(b, y, X, m){
 # Output:
 # gradient of l(b) P x 1 
 
-grad.ll <- array(NA, dim = length(beta))
-grad.ll <- -apply(X * as.numeric(y - m * wi.estimate(b, X)), 2, sum)
-return(grad.ll)
+grad.ll <- as.numeric(y - m * wi.estimate(b, X)) * X
+return(-colSums(grad.ll))
 }
 
 # Function 4. Gradient Descent
