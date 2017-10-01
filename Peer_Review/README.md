@@ -20,7 +20,7 @@ Python (5)
 
 ## Professor's indications
 
-Here I show the indications given by the proffesor regarding the peer review process:
+Here I show the indications given by the professor regarding the peer review process:
 
 You can find everyone's GitHub pages here:
 https://github.com/jgscott/SDS385/tree/master/team
