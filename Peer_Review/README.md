@@ -18,7 +18,7 @@ Python (5)
 - Amin & Tony
 - Bowen reviews Ashutosh reviews Aaron reviews Bowen
 
-## Proffesor's indications
+## Professor's indications
 
 Here I show the indications given by the proffesor regarding the peer review process:
 
