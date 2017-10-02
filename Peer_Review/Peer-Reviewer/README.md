@@ -2,9 +2,10 @@
 
 # Peer Reviewer
 
-This section presents the feedbacks I provide to other students after reviewing their assignments. 
+This section presents the feedback I provide to other students after reviewing their assignments. 
 
-# Peer Review #1
-- Student: [Yanxin Li](https://github.com/Cindy-UTSDS/BigData)
+## Peer Review #1
+I provided the evaluation description for the  [Peer Review # 1](PeerReview01-SDS385.pdf) in a PDF file along with the [Latex](PeerReview01-SDS385.tex) file used.  
+- Student evalueted: [Yanxin Li](https://github.com/Cindy-UTSDS/BigData)
 - Assignment reviewed: Exercises 1
-
+- Date: October 1, 2017.
