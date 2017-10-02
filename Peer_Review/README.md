@@ -1,7 +1,7 @@
 
 # Peer Review
 
-During this course, we need to provide an evaluation of other students' assignments. Also, my assignments are evaluated by other students and they will provide me feedbacks regarding my math or my code. 
+During this course, we need to provide an evaluation of other students' assignments. Also, my assignments are evaluated by other students and they will provide me feedback regarding my math or my code. 
 
 - My reviews to other students can be found in [Peer Reviewer](Peer-Reviewer). 
 - Other sudents evaluation of my assignments can be found in [Peer Reviewed](Peer-Reviewed).
