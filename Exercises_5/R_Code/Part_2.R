@@ -1,0 +1,123 @@
+rm(list=ls())
+library(glmnet)
+set.seed(1234)
+# The Lasso
+
+#__________________________________________________________________
+# Load Diabetes Data
+X = read.csv('diabetesX.csv')
+X = as.matrix(X) 
+Y = read.csv('diabetesY.csv',header=F)
+Y = Y[,1]
+#__________________________________________________________________
+# Fit Lasso Regression Using glmnet and plot the solutions path
+N <- 50 # Number of lambdas
+fit <- glmnet(X, Y, alpha = 1, nlambda = N)
+png(filename=paste('P2A_Lasso','.png', sep = ""), width = 15, 
+    height = 12, units = "cm", res = 200)
+plot(fit, xvar = 'lambda', xlab = 'log(lambda)')
+dev.off()
+#__________________________________________________________________
+# In-sample mean square prediction error (MSE)
+Y.prediction <- predict.glmnet(fit, newx = X)
+MSE <- array(NA, dim = N)
+for (i in 1:N){
+  MSE[i] <- mean((Y.prediction[,i] - Y)^2)
+}
+png(filename=paste('P2A_MSE1','.png', sep = ""), width = 15, 
+    height = 12, units = "cm", res = 200)
+plot(log(fit$lambda), MSE, type = "l", xlab = 'log(lambda)')
+dev.off()
+#__________________________________________________________________
+# K-fold Cross-Validation Section 7.10 of the textbook "Elements..."
+K_fold <- function(X, Y, K, lambda){
+  # Compute the K-fold Cross-Validation
+  # Input:
+  # X = features (matrix M x P)
+  # y = vector of observations (vector M)
+  # K = number of folds (constant, typically 5 or 10)
+  # lambda = set of complexity parameters (vector N)
+  # Output:
+  # MSE = Mean Square Error (vector N)
+  
+  # We split the data into K roughly equal-sized parts 
+  # using an indexing function
+  partition <- cut(1:dim(X)[1], breaks = K, labels=FALSE)
+  # Randomization
+  partition <- sample(partition)
+  
+  N <- length(lambda)
+  MSE <- array(NA, dim = c(K, N))
+  for (i in 1:K){
+    validation <- partition == i  # Validation Kth part
+    X.validation <- X[validation,]
+    Y.validation <- Y[validation]
+    train <- !validation  # Train part
+    X.train <- X[train,]
+    Y.train <- Y[train]
+    fit <- glmnet(X.train, Y.train, alpha = 1, lambda = lambda)
+    Y.prediction <- predict.glmnet(fit, newx = X.validation)
+    for (j in 1:N){
+      MSE[i, j] <- mean(((Y.prediction[,j] - Y.validation)^2))
+    }
+  }
+  colMeans(MSE)
+}
+#__________________________________________________________________
+# Applying the cross validation using K-fold function
+K <- 5 
+MSE_Kfold <- K_fold(X, Y, K, fit$lambda)
+png(filename=paste('P2A_MSE2','.png', sep = ""), width = 15, 
+    height = 12, units = "cm", res = 200)
+plot(log(fit$lambda), MSE, type = "l", xlab = 'log(lambda)')
+points(log(fit$lambda), MSE_Kfold, type="l", col="blue",lty=2)
+legend('topleft',legend = c('In-sample MSE','K-Fold CV'), 
+       col=c("black", "blue"), lty=1:2, cex=0.8)
+dev.off()
+#__________________________________________________________________
+# Sanity Check for K-fold CV
+MSE_check <- cv.glmnet(X, Y, lambda = fit$lambda, nfolds = K)
+png(filename=paste('P2A_MSE3','.png', sep = ""), width = 15, 
+    height = 12, units = "cm", res = 200)
+plot(MSE_check)
+dev.off()
+#__________________________________________________________________
+# Collin Mallows's Cp Statistic
+Cp_Mallows <- function(X, Y, lambda){
+  # Compute the Collin Mallows's Cp Statistic
+  # Input:
+  # X = features (matrix M x P)
+  # y = vector of observations (vector M)
+  # lambda = set of complexity parameters (vector N)
+  # Output:
+  # Cp = Collin Mallows's Cp Statistic (vector N)
+  
+  N <- length(lambda)
+  M <- dim(X)[1]
+  P <- dim(X)[2]
+  # Obtain the unbiased sigma-square from the OLS
+  fit <- glmnet(X, Y, alpha = 1, lambda = 0)
+  Y.OLS <- predict.glmnet(fit, newx = X)
+  sigma.square <- sum((Y - Y.OLS) ^ 2) / (M - P)
+  # In-sample mean square prediction error
+  fit <- glmnet(X, Y, alpha = 1, lambda = lambda)
+  Y.prediction <- predict.glmnet(fit, newx = X)
+  MSE <- array(NA, dim = N)
+  for (i in 1:N){
+    MSE[i] <- mean((Y.prediction[,i] - Y)^2)
+  }
+  # Estimate the Cp Statistics
+  MSE + 2 * (fit$df / M) * sigma.square
+}
+#__________________________________________________________________
+# Applying the Collin Mallows's Cp Statistic function
+MSE_Cp <- Cp_Mallows(X, Y, fit$lambda)
+png(filename=paste('P2A_MSE4','.png', sep = ""), width = 15, 
+    height = 12, units = "cm", res = 200)
+plot(log(fit$lambda), MSE, type = "l", xlab = 'log(lambda)')
+points(log(fit$lambda), MSE_Kfold, type="l", col="blue",lty=2)
+points(log(fit$lambda), MSE_Cp, type="l", col="red")
+legend('topleft',legend = c('In-sample MSE','K-Fold CV','Mallow Cp'), 
+       col=c("black", "blue","red"), lty=1:2, cex=0.8)
+dev.off()
+#__________________________________________________________________
