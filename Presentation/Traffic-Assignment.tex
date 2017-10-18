@@ -55,12 +55,12 @@
 		\begin{frame}{User Equilibrium}
 		A transportation network $G = (N, A)$ is given, where $N$ and $A$ are the sets of nodes and links, and each link  is associated
 		with a positive travel time $t(x)$ as a function of link flow $x$.  For origin-destination (O-D) pair ($rs$) $\in Z^2$ ($Z \subseteq N$), there is a given positive path ($\pi$) flow $h^\pi$ and its corresponding path travel time is $C^\pi$. Then, the objective function of the UE principle is \footnote{Known as the Beckmann function.}:
-		$$ \min_{\vect{x},\vect{h}} \sum_{(i,j) \in A}^{} \int_{0}^{x_{ij}} \vect{t}_{ij}(x)dx$$ 
+		$$ \min_{\vect{x},\vect{h}} \sum_{(i,j) \in A}^{} \int_{0}^{x_{ij}} {t}_{ij}(x)dx$$ 
 		s.t. \\
 		
 		\hfill $ x_{ij}=\sum_{\pi \in \Pi} \delta_{ij}^\pi h^\pi$  \hspace{2cm}  $\forall (i,j) \in A$  \\
 		\hfill $ d^{rs}=\sum_{\pi \in \Pi^{rs}} h^\pi$ \hspace{2.1cm}  $\forall (r,s) \in Z^2$ \\
-		\hfill $ \vect{h}^\pi \geq 0$ \hspace{3.7cm}  $\forall \pi \in \Pi$ \\
+		\hfill $ {h}^\pi \geq 0$ \hspace{3.7cm}  $\forall \pi \in \Pi$ \\
 
 		\end{frame} 
 
@@ -89,7 +89,7 @@
 	\item If the convergence criterion is satisfied, stop; otherwise return to 2.
 \end{enumerate}
 	\begin{figure}
-	\includegraphics[width=4cm, height=3.5cm]{Fig/FrankWolfeSol.png}
+	\includegraphics[width=4.5cm, height=3.5cm]{Fig/FrankWolfeSol.png}
 	\caption{A solution to the Beckmann function in the FW method (Boyles, 2016)}
 	\end{figure}
 \end{frame}
