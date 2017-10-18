@@ -4,6 +4,9 @@
 \definecolor {utorange} {RGB} {203,96,21}
 \usecolortheme[named=utorange]{structure}
 \newcommand{\vect}[1]{\boldsymbol{#1}}
+\usepackage{mathtools}	
+\mathtoolsset{centercolon}
+
 
       
 \title{The Traffic Assignment Problem}
@@ -25,10 +28,11 @@
 
 \begin{document}
 	\maketitle
-	\begin{frame}
-	\frametitle{Overview}
-	\tableofcontents
-   \end{frame}
+	%\begin{frame}
+	
+	%\frametitle{Overview}
+	%\tableofcontents
+   %\end{frame}
 
 %----------------------------------------------------------------------------------------
 %   PRESENTATION SLIDES
@@ -50,12 +54,13 @@
 	\section{User Equilibrium}
 		\begin{frame}{User Equilibrium}
 		A transportation network $G = (N, A)$ is given, where $N$ and $A$ are the sets of nodes and links, and each link  is associated
-		with a positive travel time $t(x)$ as a function of link flow $x$.  For origin-destination (O-D) pair ($rs$), there is a given positive path ($\pi$) flow $h^\pi$ and its corresponding path travel time is $C^\pi$. Then, the objective function of the UE principle is \footnote{Known as the Beckmann function.}:
+		with a positive travel time $t(x)$ as a function of link flow $x$.  For origin-destination (O-D) pair ($rs$) $\in Z^2$ ($Z \subseteq N$), there is a given positive path ($\pi$) flow $h^\pi$ and its corresponding path travel time is $C^\pi$. Then, the objective function of the UE principle is \footnote{Known as the Beckmann function.}:
 		$$ \min_{\vect{x},\vect{h}} \sum_{(i,j) \in A}^{} \int_{0}^{x_{ij}} \vect{t}_{ij}(x)dx$$ 
 		s.t. \\
-		$ \vect{h}^\pi \geq 0$  \hfill $\forall \pi \in \Pi$ \hfill Non negative path flow \\
-		$ \vect{C}^\pi \geq \kappa_{rs}$  \hfill $\forall (\vect{r},\vect{s}) \in \vect{Z}^2$  \hfill $\kappa_{rs}$ is the shortest path  \\
-		$ \vect{h}^\pi (\vect{C}^\pi -\kappa_{rs} ) \geq 0$  \hfill $\forall \pi \in \Pi$ \hfill If the path is use, its travel time is $\kappa_{rs}$  \\
+		
+		\hfill $ x_{ij}=\sum_{\pi \in \Pi} \delta_{ij}^\pi h^\pi$  \hspace{2cm}  $\forall (i,j) \in A$  \\
+		\hfill $ d^{rs}=\sum_{\pi \in \Pi^{rs}} h^\pi$ \hspace{2.1cm}  $\forall (r,s) \in Z^2$ \\
+		\hfill $ \vect{h}^\pi \geq 0$ \hspace{3.7cm}  $\forall \pi \in \Pi$ \\
 
 		\end{frame} 
 
@@ -64,8 +69,7 @@
 \begin{frame}{Frank-Wolfe Algorithm}
 	\begin{itemize}
 
-\item Frank and Wolfe (1956) designed this conditional gradient algorithm to solve the convex quadratic problem, and LeBlanc et al. (1975) first adopted it for solution of the TA 
-problem.
+\item Frank and Wolfe (1956) designed this conditional gradient algorithm to solve the convex quadratic problems with linear constraints, and LeBlanc et al. (1975) first adopted it for solution of the TA problem.
 \item Advantages: Memory efficiency (only link variables need to be stored).
 \item Disadvantage: Slow convergence near the optimal point, take long time to reach high precision.
 	\end{itemize}
@@ -76,27 +80,43 @@ problem.
 \end{frame}
 
 \subsection{Application to the Traffic Assignment Problem}
-\begin{frame}{Frank-Wolfe Algorithm: Traffic Assignment Problem}
-	\begin{itemize}
-		\item  Define $\vect{X}'=\{\vect{x}':\vect{x}=\lambda \vect{x}^{*} + (1-\lambda)\vect{x}, \lambda \in [0,1] \}$
-		\item Find $\vect{x}' \in \vect{X}' $ such that $\vect{t}(x')\cdot (\vect{x}'-\vect{x}'')\leq 0$  $\forall \vect{x}'' \in \vect{X}'$
-		%\item We pick a $\lambda$ to solve this, it is the same as choosing $\lambda$ to minimize the Beckmann function.
-		\item We assume that the solution is not in any endpoint ($\lambda=1$ or $\lambda=1$).
-		\item   Then, $\sum_{ij}^{} t_{ij}(x'_{ij})(x_{ij}^{*}-x_{ij})=0$
-		\item Where, $x' = x_{ij} + \lambda(x_{ij}^{*}-x_{ij})$ or $x'=\lambda x_{ij}^{*}+(1-\lambda )x_{ij}$ 
+\begin{frame}{Frank-Wolfe Algorithm: The Traffic Assignment Problem}
+\begin{enumerate}
+	\item Generate a initial solution $\vect{x} \in \vect{X}$.
+	\item Generate a target solution $ \vect{x}^{*}$ which minimize the linear approximation  $ f(\vect{x}) + \nabla f(\vect{x})^T(\vect{x}^*-\vect{x})  $.
+	\item Update the current solution $\vect{x'} \coloneqq  \vect{x} + \lambda(\vect{x}^{*}-\vect{x})$ , $\lambda \in [0,1]$.
+	\item Calculate new travel times $\vect{t}(\vect{x'})$.
+	\item If the convergence criterion is satisfied, stop; otherwise return to 2.
+\end{enumerate}
 	\begin{figure}
-		\includegraphics[width=4cm, height=4cm]{Fig/FrankWolfeSol.png}
-		\caption{A solution to the Beckmann function in the FW method (Boyles, 2016)}
+	\includegraphics[width=4cm, height=3.5cm]{Fig/FrankWolfeSol.png}
+	\caption{A solution to the Beckmann function in the FW method (Boyles, 2016)}
 	\end{figure}
-	\end{itemize}
 \end{frame}
+
+
+%\subsection{Application to the Traffic Assignment Problem}
+%\begin{frame}{Frank-Wolfe Algorithm}
+%	\begin{itemize}
+%		\item  Define $\vect{X}'=\{\vect{x}':\vect{x}=\lambda \vect{x}^{*} + (1-\lambda)\vect{x}, \lambda \in [0,1] \}$
+%		\item Find $\vect{x}' \in \vect{X}' $ such that $\vect{t}(x')\cdot (\vect{x}'-\vect{x}'')\leq 0$  $\forall \vect{x}'' \in \vect{X}'$
+%		%\item We pick a $\lambda$ to solve this, it is the same as choosing $\lambda$ to minimize the Beckmann function.
+%		\item We assume that the solution is not in any endpoint ($\lambda=1$ or $\lambda=1$).
+%		\item   Then, $\sum_{ij}^{} t_{ij}(x'_{ij})(x_{ij}^{*}-x_{ij})=0$
+%		\item Where, $x' = x_{ij} + \lambda(x_{ij}^{*}-x_{ij})$ or $x'=\lambda x_{ij}^{*}+(1-\lambda )x_{ij}$ 
+%	\begin{figure}
+%		\includegraphics[width=5cm, height=4cm]{Fig/FrankWolfeSol.png}
+%		\caption{A solution to the Beckmann function in the FW method (Boyles, 2016)}
+%	\end{figure}
+%	\end{itemize}
+%\end{frame}
 
 \subsection{Case Study: Computational Efficiency in Large Networks}
 \begin{frame}{Frank-Wolfe Algorithm: Large Networks Case Study}
 \begin{itemize}
 	\item  Lee et al. (2002) evaluated the FW computational performance in mid- to large-scale randomly generated grid networks.
-	\item Path-based algorithm:, gradient projection (GP) and disaggregate simplicial decomposition (DSD), 
-	\item Link-based algorithms: Frank–Wolfe (FW), PARTAN (PT), and restricted simplicial decomposition (RSD)
+	\item Path-based algorithm:, gradient projection (GP) and disaggregate simplicial decomposition (DSD).
+	\item Link-based algorithms: Frank Wolfe (FW), PARTAN (PT), and restricted simplicial decomposition (RSD).
 	\begin{figure}
 		\includegraphics[width=8cm, height=4.2cm]{Fig/ComputationalTime.png}
 		\caption{CPU time versus network size (Lee at al., 2002)}
