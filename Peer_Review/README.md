@@ -18,6 +18,18 @@ Python (5)
 - Amin & Tony
 - Bowen reviews Ashutosh reviews Aaron reviews Bowen
 
+# Peer Review #2
+Here are the pairings (or three-cycles) for peer review #2:
+
+R (7)
+- Mauricio & Rimli
+- Yinan & Ciara
+- Yanxin reviews Hyunsang reviews Natalia reviews Yanxin
+
+Python (5)
+- Amin & Bowen
+- Tony reviews Aaron reviews Ashutosh reviews Tony
+
 ## Professor's indications
 
 Here I show the indications given by the professor regarding the peer review process:
