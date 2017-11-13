@@ -7,6 +7,12 @@ In these exercises, you will work towards a solid, fast implementation of stocha
 
 I suggest you build and debug your code on one of your smaller data sets from before.  But [here's the data set you'll be building up to at the end of the exercises.](http://archive.ics.uci.edu/ml/datasets/URL+Reputation).  The goal here is to build a model that can detect malicious URLs in web traffic.  This data set has about 2.4 million observations and 3.2 million features, which isn't exactly Google-scale, but is big enough to cause serious problems with batch algorithms.  These features correspond to various lexical properties of the URL string, along with properties of the host and its IP address.  The outcome is whether the URL is malicious (coded 1) or not (coded -1).
 
+
+# Comments for the Peer-Reviewer
+
+I am still working on these exercises. 
+
+
 ### Data input
 
 The data are stored across multiple files in a format called [SVMlight](http://www.gabormelli.com/RKB/SVMlight_Learning_File_Format), which is a sparse matrix format that's pretty common in machine-learning applications.  I've provided you with an [R function](../R/read_svmlight_class.R) for reading in these files; it behaves a bit like read.csv or read.table.  Note: my implementation is in pure R, and provides a good overview of some of R's string manipulation capabilities.  It makes use of vectorized functions wherever possible, but a pure C++ implementation would no doubt be faster here.
