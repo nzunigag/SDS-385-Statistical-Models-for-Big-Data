@@ -9,6 +9,13 @@ Both features come up in problems where we wish to impose sparsity on a paramete
 
 In this set of exercises, we begin our study of scalable algorithms that can handle sparsity, with the proximal gradient method.
 
+# Comments for the Peer-Reviewer
+
+- The solution is presented in a [PDF](solution06-SDS385.pdf) document along with the [Latex](solution06-SDS385.tex) files used. This document presents a detailed description of the solution for each exercise, and it also includes the description of the code I used.
+
+- The R code files can be found in this [folder](R_Code), which also includes the output figure presented in the description of the solution, and the databases for [diabetesX](R_Code/diabetesX.csv) and [diabetesY](R_Code/diabetesY.csv), used in Part 2 of the exercise.
+
+- I also included a [literature](Literature) folder, which contains recommended and additional readings I used.
 
 ### Optional reading
 
