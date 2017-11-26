@@ -1,9 +1,7 @@
-≠---
-title: "Exercises_7"
-author: "Natalia Zuniga-Garcia"
-date: "11/13/2017"
-output: html_document
----
+
+
+# Natalia Zuniga-Garcia
+# Exercises 7: Introduction to ADMM
 
 ## Alternative Direction Method of Multipliers (ADMM)
 
@@ -215,7 +213,7 @@ ADMM <- function(Y, X, lambda, rho, iter, tol){
 
 ```
 
-## Results using Diabetes Data
+## Results Using Diabetes Data
 
 ```{r data}
 

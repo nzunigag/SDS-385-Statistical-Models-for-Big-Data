@@ -121,7 +121,11 @@ $(document).ready(function () {
 </div>
 
 
-<p>≠— title: “Exercises_7” author: “Natalia Zuniga-Garcia” date: “11/13/2017” output: html_document —</p>
+<div id="natalia-zuniga-garcia" class="section level1">
+<h1>Natalia Zuniga-Garcia</h1>
+</div>
+<div id="exercises-7-introduction-to-admm" class="section level1">
+<h1>Exercises 7: Introduction to ADMM</h1>
 <div id="alternative-direction-method-of-multipliers-admm" class="section level2">
 <h2>Alternative Direction Method of Multipliers (ADMM)</h2>
 <p>Implement the ADMM for fitting the lasso regression model, and compare it to the Proximal Gradient method.</p>
@@ -326,7 +330,7 @@ ADMM &lt;- function(Y, X, lambda, rho, iter, tol){
 </div>
 </div>
 <div id="results-using-diabetes-data" class="section level2">
-<h2>Results using Diabetes Data</h2>
+<h2>Results Using Diabetes Data</h2>
 <pre class="r"><code>#__________________________________________________________________
 # Load Diabetes Data
 X = as.matrix(read.csv('diabetesX.csv'))
@@ -369,6 +373,7 @@ legend('topright',legend = c('Prox Grad','Ac Prox Grad','ADMM'),
 <pre class="r"><code>#dev.off()
 
 #__________________________________________________________________</code></pre>
+</div>
 </div>
 
 
