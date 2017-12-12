@@ -15,3 +15,6 @@ I provided the evaluation description for the  [Peer Review # 2](PeerReview02-SD
 - Student evaluated: [Yanxin Li](https://github.com/Cindy-UTSDS/BigData)
 - Assignment reviewed: Exercises 2 to 6
 - Date: November 3, 2017.
+
+## Peer Review #3
+The laste Peer-Review consisteed of shout-outs to the folks who contibuted to my learning process. I provided the evaluation description in a [PDF file](PeerReview03-SDS385.pdf) along with the [Latex](PeerReview03-SDS385.tex) file used.
